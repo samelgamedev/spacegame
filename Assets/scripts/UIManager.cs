@@ -46,8 +46,10 @@ namespace spacegame
             }
         }
 
+        public UI[] skadoobly;
         private void Update()
         {
+            skadoobly = inputQueue.ToArray();
             if (inputQueue.Count > 0 && inputQueue.Peek().readyToDequeue)
             {
                 inputQueue.Pop(); // pop

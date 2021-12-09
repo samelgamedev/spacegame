@@ -35,6 +35,16 @@ namespace spacegame
                     // force the ui to be ready to pop from the input queue (we don't want it to destroy when the quit confirmation appears)
                     menu.readyToDequeue = true;
                     MapManager.ChangeMap("ship_alison_intro");
+
+                    PartyManager.AddPartyMember(new PartyMemberData
+                    {
+                        name = "alison the robot"
+                    });
+                    InventoryManager.GiveItem("test");
+                    InventoryManager.GiveItem("cool armour");
+                    InventoryManager.GiveItem("cool food");
+                    InventoryManager.GiveItem("cool weapon");
+
                     break;
                 case "don't play game":
                     UI ui = UIManager.instance.New(new Vector2(0, -140), new Vector2(400, 200));

@@ -41,17 +41,17 @@ namespace spacegame
 
                     // get prefab
                     GameObject g = PrefabManager.instance.GetPrefab("exception msg");
-                    Instantiate(g,
+                    GameObject msg = Instantiate(g,
                         // ui manager is attached to the canvas
                         UIManager.instance.transform.position, Quaternion.identity, UIManager.instance.transform);
                     // set text
-                    g.GetComponentInChildren<Text>().text = $"an exception was encountered:\n\n{condition}\n{stackTrace.Substring(0, 200) + "..."}\n\nthe full stack trace was logged";
+                    msg.GetComponentInChildren<Text>().text = $"an exception was encountered:\n\n{condition.Substring(0, 100) + "..."}\n{stackTrace.Substring(0, 200) + "..."}\n\nthe full stack trace was logged";
 
                     Debug.Log($"\n===============================\n");
 
                     // this doesn't work for no reason
                     // get handy dandies to destroy the ui after the select key is pressed unless the handy dandies instance is null
-                    StartCoroutine(HandyDandies.instance?.DoAfter(() => Input.GetKeyDown(InputManager.select), () => Destroy(g)));
+                    StartCoroutine(HandyDandies.instance?.DoAfter(() => Input.GetKeyDown(InputManager.select), () => Destroy(msg)));
                 }
                 catch (Exception ex)
                 {

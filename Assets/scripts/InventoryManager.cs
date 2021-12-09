@@ -159,7 +159,7 @@ namespace spacegame
             if (uiOpen) return;
             uiOpen = !uiOpen;
 
-            ui = UIManager.instance.NewNavigateable(new Vector2(-18, 193), new Vector2(300, 50),
+            ui = UIManager.instance.NewNavigateable(new Vector2(-18, 193), new Vector2(300, 100),
                 UI.PrintTextOptions.CallbackAfterInput | UI.PrintTextOptions.Instant);
 
             // concatenate an array containing only "back" and a ling selection array with the item data names 
@@ -224,6 +224,7 @@ namespace spacegame
                 "info",
             };
             if (item.Value.canBeUsedInMenu) options.Add("use");
+            if (item.Value.weapon || item.Value.armour) options.Add("equip");
 
             UINavigateable ui = UIManager.instance.NewNavigateable(new Vector2(302, -4), new Vector2(300, 50),
                 UI.PrintTextOptions.CallbackAfterInput | UI.PrintTextOptions.Instant);
@@ -250,6 +251,40 @@ namespace spacegame
                             break;
                         case "use":
                             alisonscript.Interpreter.Run(item.Value.script ?? "item", item.Value.scriptArgs);
+                            break;
+                        case "equip":
+                            UI thing = null;
+                            UINavigateable options2 = null;
+
+                            Action showOptions = new Action(() =>
+                            {
+                                options2 = UIManager.instance.NewNavigateable(new Vector2(-122, -144), new Vector2(620, 50));
+                                options2.alsoDestroy.Add(thing);
+
+                                // then set the options
+                                options2.SetOptions(new string[] { "nevermind" }.Concat(PartyManager.GetPartyMembers()
+                                    .Select((PartyMemberData p) => p.name)).ToArray(),
+                                    // callback
+                                    () =>
+                                    {
+                                        switch (options2.selectedOption)
+                                        {
+                                            case "nevermind":
+                                                // just break, the game object will destroy
+                                                break;
+                                            default:
+                                                if (item.Value.weapon)
+                                                    PartyManager.GetPartyMember(options2.index - 1).weapon = item.Value;
+                                                else if (item.Value.armour)
+                                                    PartyManager.GetPartyMember(options2.index - 1).armour = item.Value;
+                                                break;
+                                        }
+                                    });
+                            });
+
+                            thing = UIManager.instance.New(new Vector2(-122, 48.5f), new Vector2(620, 200));
+                            thing.StartCoroutine(thing.PrintText("equip on who?", showOptions, UI.PrintTextOptions.CallbackAfterPrinting));
+
                             break;
                     }
                 });
