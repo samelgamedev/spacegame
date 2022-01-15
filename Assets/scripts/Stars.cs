@@ -42,9 +42,17 @@ namespace spacegame
             Vector2 position = new Vector2(
                 UnityEngine.Random.Range(-5.2f, 5.3f),
                 UnityEngine.Random.Range(-4f, 4f));
+            // sizes
+            Vector3[] sizes = new Vector3[]
+            {
+                new Vector3(1, 1, 1),
+                new Vector3(0.5f, 0.5f, 1),
+                new Vector3(0.25f, 0.25f, 1),
+            };
 
             // instantiate
             GameObject g = Instantiate(star, position + (Vector2)MainCamera.instance.transform.position, Quaternion.identity, MainCamera.instance.transform);
+            g.transform.localScale = sizes[UnityEngine.Random.Range(0, sizes.Length - 1)];
 
             // fade in/out the star
             // TODO: probably not so good to be using GetComponent so often

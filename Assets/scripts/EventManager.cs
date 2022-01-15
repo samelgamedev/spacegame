@@ -18,6 +18,8 @@ namespace spacegame
                     // run a script
                     // event argument 0 should be the name of the script and every argument afterward should be additional script args
                     alisonscript.Interpreter.Run(ev.args[0], ev.args.Skip(1).ToArray());
+                    Player.instance.StopHorizontalAnimation();
+                    Player.instance.canMove = false;
                     break;
                 case Event.EventType.ChangeMap:
                     // change the map

@@ -42,7 +42,7 @@ namespace spacegame
                 opening = false;
 
                 // check that the player is still in the collider, which they probably aren't, and if they aren't close it
-                if (!trigger.IsTouching(Controller.instance.coll))
+                if (!trigger.IsTouching(Player.instance.coll))
                 {
                     yield return new WaitForSeconds(0.5f);
                     StartCoroutine(ToggleDoor(false));
@@ -60,7 +60,7 @@ namespace spacegame
                 closing = false;
 
                 // check that the player is still in the collider, and if they are reopen it
-                if (trigger.IsTouching(Controller.instance.coll))
+                if (trigger.IsTouching(Player.instance.coll))
                 {
                     yield return new WaitForSeconds(0.5f);
                     StartCoroutine(ToggleDoor(true));

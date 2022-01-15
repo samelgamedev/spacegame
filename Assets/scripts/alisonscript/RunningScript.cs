@@ -82,7 +82,7 @@ namespace spacegame.alisonscript
 
         public void Finished()
         {
-            Controller.instance.canMove = true;
+            Player.instance.canMove = true;
             Interpreter.DisposeRunningScript();
             Interpreter.interpreterRunning = false;
         }

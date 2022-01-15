@@ -7,6 +7,7 @@ namespace spacegame
     public class MainCamera : MonoBehaviour
     {
         public GameObject player;
+        public Transform altMapMask;
         public bool followPlayer = true;
 
         public static MainCamera instance;
@@ -16,6 +17,7 @@ namespace spacegame
         {
             instance = this;
             if (player == null) player = GameObject.Find("alison");
+            altMapMask = transform.Find("alt mask");
         }
 
         // Update is called once per frame

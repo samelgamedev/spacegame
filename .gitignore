@@ -1,1 +1,6 @@
 Temp/
+Library/
+
+# everything in library except state cache and LastSceneManagerSetup
+!Library/LastSceneManagerSetup.txt
+!Library/StateCache/

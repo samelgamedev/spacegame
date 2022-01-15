@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scenes/debug_parallax.unity
     guid: 3f9f06b85b563d94b924ec65f0f5c893
+  - enabled: 1
+    path: Assets/scenes/debug_alpha_maptest.unity
+    guid: 3a889db1d0ee0d948ac2979e984fba4f
   m_configObjects: {}

@@ -9,7 +9,15 @@ namespace spacegame
     {
         [HideInInspector] public AudioSource aud;
         public static BGMPlayer instance;
+        public AudioClip playingClip
+        {
+            get
+            {
+                return aud.clip;
+            }
+        }
 
+        // assigned in inspector
         public AudioClip[] bgm;
 
         // Start is called before the first frame update
@@ -36,6 +44,7 @@ namespace spacegame
         public void Stop()
         {
             aud.Stop();
+            aud.clip = null;
         }
     }
 }

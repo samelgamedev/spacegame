@@ -28,21 +28,21 @@ namespace spacegame
             }
         }
 
-        public void UpdateX(Controller player)
+        public void UpdateX(Player player)
         {
             if (data.followPlayerX)
             {
                 transform.position = player.transform.position;
             }
             // only move the parallax further from the player if the player has moved
-            else if (player.transform.hasChanged && data.moveX)
+            else if (player.rigidbody2d.transform.hasChanged && data.moveX) 
             {
                 int distanceX = player.facingRight ? 1 : -1;
                 transform.position -= new Vector3(distanceX * player.movementSpeed * moveSpeedMultiplier * Time.deltaTime, 0);
             }
         }
 
-        public void UpdateY(Controller player)
+        public void UpdateY(Player player)
         {
             if (data.followPlayerY)
             {

@@ -22,17 +22,18 @@ namespace spacegame
                 debugConsole.SetActive(!debugConsole.activeSelf);
 
             // set debug text
+            // i am so sorry
             debugText.text
                 = $"scene: {SceneManager.GetActiveScene().name ?? "<none, somehow>"}\n"
-                + $"player world position: {(Controller.instance != null ? Controller.instance.gameObject.transform.position.ToString() : "<none>")}\n"
-                + $"bgm: {(BGMPlayer.instance.aud.clip.name != null ? BGMPlayer.instance.aud.clip.name : "<none>")}\n"
+                + $"player world position: {(Player.instance != null ? Player.instance.gameObject.transform.position.ToString() : "<none>")}\n"
+                + $"bgm: {(BGMPlayer.instance.playingClip != null ? BGMPlayer.instance.playingClip.name : "<none>")}\n"
                 + $"interpreter line: {(alisonscript.Interpreter.runningScript != null ? alisonscript.Interpreter.runningScript.lines[alisonscript.Interpreter.runningScript.lineIndex] : "<none>")}\n"
                 + $"cool robot: yup\n"
                 + $"delta: {Time.deltaTime}\n"
-                + $"rb: v: {(Controller.instance != null ? Controller.instance.rigidbody2d.velocity.ToString() : "<none>")} "
-                + $"av: {(Controller.instance != null ? Controller.instance.rigidbody2d.angularVelocity.ToString() : "<none>")} "
-                + $"d: {(Controller.instance != null ? Controller.instance.rigidbody2d.drag.ToString() : "<none>")} "
-                + $"ad: {(Controller.instance != null ? Controller.instance.rigidbody2d.angularDrag.ToString() : "<none>")}\n"
+                + $"rb: v: {(Player.instance != null ? Player.instance.rigidbody2d.velocity.ToString() : "<none>")} "
+                + $"av: {(Player.instance != null ? Player.instance.rigidbody2d.angularVelocity.ToString() : "<none>")} "
+                + $"d: {(Player.instance != null ? Player.instance.rigidbody2d.drag.ToString() : "<none>")} "
+                + $"ad: {(Player.instance != null ? Player.instance.rigidbody2d.angularDrag.ToString() : "<none>")}\n"
                 + $"last log message: {lastLogMessage}";
         }
     }

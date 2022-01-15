@@ -20,16 +20,16 @@ namespace spacegame
 
         public void UpdatePosition(int index)
         {
-            bool right = Controller.instance.facingRight;
-            Vector2 position = new Vector2(Controller.instance.onLadder 
-                ? Controller.instance.transform.position.x : (right ? Controller.instance.transform.position.x - index - 1
-                : Controller.instance.transform.position.x + index + 1), Controller.instance.onLadder
-                ? Controller.instance.transform.position.y - index - 1 : Controller.instance.transform.position.y);
+            bool right = Player.instance.facingRight;
+            Vector2 position = new Vector2(Player.instance.onLadder 
+                ? Player.instance.transform.position.x : (right ? Player.instance.transform.position.x - index - 1
+                : Player.instance.transform.position.x + index + 1), Player.instance.onLadder
+                ? Player.instance.transform.position.y - index - 1 : Player.instance.transform.position.y);
 
             PlayAnimation(walkAnimation);
             MoveTo(position, 
                 // subtract the y of the player's rigidbody2d to account for gravity
-                Controller.instance.movementSpeed - Controller.instance.rigidbody2d.velocity.y, 
+                Player.instance.movementSpeed - Player.instance.rigidbody2d.velocity.y, 
                 // we'll play and stop the walk animation ourselves
                 false);
         }

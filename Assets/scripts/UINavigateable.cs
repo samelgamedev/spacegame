@@ -61,18 +61,24 @@ namespace spacegame
         // returns the option the arrow lands on
         public void Navigate(bool up)
         {
+            bool moved = false;
+
             // increment/decrement index
             // the top option has the lowest index and the lowest option has the highest index
             if (up && index > 0)
             {
                 index--;
                 arrow.transform.position += new Vector3(0, 35);
+                moved = true;
             }
             else if (!up && index < options.Length - 1)
             {
                 index++;
                 arrow.transform.position -= new Vector3(0, 35);
+                moved = true;
             }
+
+            if (moved) SFXPlayer.instance.Play("sfx_menu_select");
         }
     }
 }

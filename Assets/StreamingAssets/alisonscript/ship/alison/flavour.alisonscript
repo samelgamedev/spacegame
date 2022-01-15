@@ -1,26 +1,14 @@
 cond "@in_args0"
     when "console"
-        ;spk "|alison the robot| it's my console it has a lot of buttons"
-        ;spk "|alison the robot| but i can't reach them without standing on my chair"
-        #;goto "spin_on_chair"
+        ;spk "alison approaches the ship's cockpit console at the front of the room"
+        ;spk "from here, she can use the ship's navigation system,"
+        ;spk "as well as speak through the intercom and pretend she's an airplane pilot"
+        ;spk "to her detriment, however, she can't reach any of the buttons without standing on her chair"
         ;end_processing
     when "chair"
-        ;spk "|alison the robot| it's a chair"
-        ;spk "|alison the robot| i like to spin around on it"
+        ;spk "beside the console is a stiff leather chair, a few inches shorter than alison"
+        ;spk "the cushion part of the chair is attached to the base via a thick, vertical nylon rod,"
+        ;spk "which, when given enough velocity from the cushion, spins, granting alison dopamine"
         # alisonscript bug rn where having more than one branch in a conditional throws a stray end statement error
         ;end_processing
-end
-
-;end_processing
-
-# spin on chair (label)
-&spin_on_chair
-
-;choice "@ch" "yes" "no"
-
-cond "@ch"
-    when "yes"
-        ;spk "|alison the robot| animate me spinning on my chair"
-    when "no"
-        ;spk "|alison the robot| don't animate me spinning on my chair"
 end
