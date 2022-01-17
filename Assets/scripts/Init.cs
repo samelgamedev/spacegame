@@ -24,9 +24,6 @@ namespace spacegame
             SFXPlayer.instance.sfx = Resources.LoadAll<AudioClip>("audio/sfx");
             PrefabManager.instance.prefabs = Resources.LoadAll<GameObject>("prefabs");
 
-            // init items
-            InventoryManager.InitItems();
-
             // then go to title screen
             MapManager.ChangeMap("title");
         }

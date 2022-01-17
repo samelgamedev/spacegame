@@ -1,5 +1,6 @@
 Temp/
 Library/
+obj/
 .vs/
 
 # everything in library except state cache and LastSceneManagerSetup

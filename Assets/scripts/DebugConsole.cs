@@ -102,7 +102,7 @@ namespace spacegame
         public static class Commands
         {
             public static Dictionary<string, Delegate> commands = new Dictionary<string, Delegate>();
-            public delegate void Command(string[] args);
+            private delegate void Command(string[] args);
 
             public static void RegisterCommands()
             {
@@ -173,13 +173,13 @@ namespace spacegame
                 MapManager.ChangeMap(args[0], args.Length > 1 ? int.Parse(args[1]) : 0);
             }
 
-            [Command("maps")]
-            public static void MapList(string[] args)
+            //[Command("scenes")] // commented out because this is broken
+            public static void SceneList(string[] args)
             {
-                string[] sceneNames = new string[SceneManager.sceneCount];
+                string[] sceneNames = new string[SceneManager.sceneCountInBuildSettings];
 
-                for (int i = 0; i < SceneManager.sceneCount; i++)
-                    sceneNames[i] = SceneManager.GetSceneAt(i).name;
+                for (int i = 0; i < SceneManager.sceneCountInBuildSettings; i++)
+                    sceneNames[i] = SceneManager.GetSceneByBuildIndex(i).name;
 
                 instance.Out(string.Join(",", sceneNames));
             }
@@ -198,12 +198,6 @@ namespace spacegame
                 filesList.ForEach((string file) => file = file.Remove(0, file.LastIndexOf("\\")));
 
                 instance.Out(string.Join(",", filesList));
-            }
-
-            [Command("give_item", 1)]
-            public static void GiveItem(string[] args)
-            {
-                InventoryManager.GiveItem(args[0]);
             }
 
             [Command("noclip")]
