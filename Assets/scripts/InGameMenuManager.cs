@@ -96,6 +96,9 @@ namespace spacegame
                             }
                         });
                     break;
+                case "inventory":
+                    InventoryManager.OpenUI();
+                    break;
                 case "settings":
                     break;
                 case "save":

@@ -95,6 +95,8 @@
     <Compile Include="Assets\scripts\Parallax.cs" />
     <Compile Include="Assets\scripts\PartyManager.cs" />
     <Compile Include="Assets\scripts\PartyMemberData.cs" />
+    <Compile Include="Assets\scripts\Player.cs" />
+    <Compile Include="Assets\scripts\PlayerFeet.cs" />
     <Compile Include="Assets\scripts\PrefabManager.cs" />
     <Compile Include="Assets\scripts\SFXPlayer.cs" />
     <Compile Include="Assets\scripts\SpaceshipDoor.cs" />
