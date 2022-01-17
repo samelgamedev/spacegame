@@ -205,6 +205,40 @@ namespace spacegame
             {
                 InventoryManager.GiveItem(args[0]);
             }
+
+            [Command("noclip")]
+            public static void ToggleNoclip(string[] args)
+            {
+                // noclip already on?
+                if (GameState.GetBoolean("debug_noclip"))
+                {
+                    // reset gravity back to 1 and remove vertical movement
+                    Player.instance.SetGravity(1);
+                    InputManager.instance.RemoveEvent("verticalKeyHeld", Player.instance.VerticalMovement);
+                }
+                else
+                {
+                    // set gravity to 0 and allow vertical movement
+                    Player.instance.SetGravity(0);
+                    InputManager.instance.AddEvent("verticalKeyHeld", Player.instance.VerticalMovement);
+
+                    // not really sure what'd happen if you tried enabling noclip on a ladder but i'm like 98% sure it'd break
+                    // so i'll just do this for now
+                    Player.instance.onLadder = false;
+                }
+
+                // toggle collider enabled and noclip state boolean
+                Player.instance.coll.enabled = !Player.instance.coll.enabled;
+                GameState.SetBoolean("debug_noclip", !GameState.GetBoolean("debug_noclip"));
+
+                instance.Out($"noclip is now {GameState.GetBoolean("debug_noclip")}");
+            }
+
+            [Command("reset_velocity")]
+            public static void ResetVelocity(string[] args)
+            {
+                Player.instance.rigidbody2d.velocity = Vector2.zero;
+            }
         }
 
         private class CommandAttribute : Attribute

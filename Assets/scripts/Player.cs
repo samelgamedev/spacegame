@@ -87,13 +87,11 @@ namespace spacegame
 
         public void StopHorizontalAnimation()
         {
-            //if (!canMove) return;
-
             animator.ResetTrigger("walking");
             animator.SetTrigger("idle");
 
-            // stop velocity
-            rigidbody2d.velocity = Vector2.zero;
+            // stop x velocity
+            rigidbody2d.velocity = new Vector2(0, rigidbody2d.velocity.y);
 
             // stop the followers from walking
             foreach (Follower f in followers)
@@ -110,7 +108,6 @@ namespace spacegame
             UpdateFollowers();
 
             int horizontalVelocity = e.key == InputManager.left ? -1 : 1;
-            //transform.Translate(horizontalVelocity * movementSpeed * Time.deltaTime, 0, 0);
             rigidbody2d.velocity = new Vector2(horizontalVelocity * movementSpeed * Time.deltaTime * 50, rigidbody2d.velocity.y);
         }
 

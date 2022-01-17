@@ -10,7 +10,7 @@ namespace spacegame
     public class Parallax : MonoBehaviour
     {
         public ParallaxData data;
-        /*[HideInInspector] */public float moveSpeedMultiplier;
+        public float moveSpeedMultiplier;
 
         public void Init()
         {
@@ -28,14 +28,19 @@ namespace spacegame
             }
         }
 
+        private void Update()
+        {
+            // probably not the best solution :/
+            if (data.followPlayerX)
+                transform.position = Player.instance.transform.position;
+            if (data.followPlayerY)
+                transform.position = Player.instance.transform.position;
+        }
+
         public void UpdateX(Player player)
         {
-            if (data.followPlayerX)
-            {
-                transform.position = player.transform.position;
-            }
             // only move the parallax further from the player if the player has moved
-            else if (player.rigidbody2d.transform.hasChanged && data.moveX) 
+            if (player.rigidbody2d.transform.hasChanged && data.moveX) 
             {
                 int distanceX = player.facingRight ? 1 : -1;
                 transform.position -= new Vector3(distanceX * player.movementSpeed * moveSpeedMultiplier * Time.deltaTime, 0);
@@ -44,10 +49,6 @@ namespace spacegame
 
         public void UpdateY(Player player)
         {
-            if (data.followPlayerY)
-            {
-                transform.position = player.transform.position;
-            }
             // only move the parallax further from the player if the player has moved
             /*
             else if (player.transform.hasChanged && data.moveX)

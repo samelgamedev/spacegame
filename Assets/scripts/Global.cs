@@ -12,7 +12,18 @@ namespace spacegame
     public class Global : MonoBehaviour
     {
         public static Global instance;
-        public static bool debugMode;
+        // wraps the game state bool
+        public static bool debugMode
+        {
+            get
+            {
+                return GameState.GetBoolean("debug_mode");
+            }
+            set
+            {
+                GameState.SetBoolean("debug_mode", value);
+            }
+        }
 
         // Start is called before the first frame update
         void Awake()
@@ -74,7 +85,6 @@ namespace spacegame
         public void EnterDebugMode()
         {
             debugMode = true;
-            GameState.SetBoolean("debug_mode", true);
 
             // create debug ui
             Instantiate(PrefabManager.instance.GetPrefab("debug ui"), UIManager.instance.transform);

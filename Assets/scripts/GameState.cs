@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace spacegame
 {
+    // this is used for storing booleans/integers that need to be mentioned in cutscenes
+    // (e.g. talked to guy once = more dialogue appears)
+    // and for when i don't feel like organizing something at any given time
     public static class GameState
     {
         private static Dictionary<string, bool> booleans = new Dictionary<string, bool>();

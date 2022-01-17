@@ -1,5 +1,6 @@
 Temp/
 Library/
+.vs/
 
 # everything in library except state cache and LastSceneManagerSetup
 !Library/LastSceneManagerSetup.txt
