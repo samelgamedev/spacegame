@@ -37,25 +37,25 @@ namespace spacegame
         private KeyPressedEvent[] events = new KeyPressedEvent[]
         {
             // horizontal keys
-            new KeyPressedEvent(left, KeyPressedType.Down, new DelegateHolder("horizontalKeyDown")),
-            new KeyPressedEvent(right, KeyPressedType.Down, new DelegateHolder("horizontalKeyDown")),
-            new KeyPressedEvent(left, KeyPressedType.Held, new DelegateHolder("horizontalKeyHeld")),
-            new KeyPressedEvent(right, KeyPressedType.Held, new DelegateHolder("horizontalKeyHeld")),
-            new KeyPressedEvent(left, KeyPressedType.Up, new DelegateHolder("horizontalKeyReleased")),
-            new KeyPressedEvent(right, KeyPressedType.Up, new DelegateHolder("horizontalKeyReleased")),
+            new KeyPressedEvent(left, KeyPressedType.Down, new DelegateHolder(Constants.Input.HORIZONTAL_KEY_DOWN)),
+            new KeyPressedEvent(right, KeyPressedType.Down, new DelegateHolder(Constants.Input.HORIZONTAL_KEY_DOWN)),
+            new KeyPressedEvent(left, KeyPressedType.Held, new DelegateHolder(Constants.Input.HORIZONTAL_KEY_HELD)),
+            new KeyPressedEvent(right, KeyPressedType.Held, new DelegateHolder(Constants.Input.HORIZONTAL_KEY_HELD)),
+            new KeyPressedEvent(left, KeyPressedType.Up, new DelegateHolder(Constants.Input.HORIZONTAL_KEY_RELEASED)),
+            new KeyPressedEvent(right, KeyPressedType.Up, new DelegateHolder(Constants.Input.HORIZONTAL_KEY_RELEASED)),
 
             // vertical keys
-            new KeyPressedEvent(up, KeyPressedType.Down, new DelegateHolder("verticalKeyDown")),
-            new KeyPressedEvent(down, KeyPressedType.Down, new DelegateHolder("verticalKeyDown")),
-            new KeyPressedEvent(up, KeyPressedType.Held, new DelegateHolder("verticalKeyHeld")),
-            new KeyPressedEvent(down, KeyPressedType.Held, new DelegateHolder("verticalKeyHeld")),
-            new KeyPressedEvent(up, KeyPressedType.Up, new DelegateHolder("verticalKeyReleased")),
-            new KeyPressedEvent(down, KeyPressedType.Up, new DelegateHolder("verticalKeyReleased")),
+            new KeyPressedEvent(up, KeyPressedType.Down, new DelegateHolder(Constants.Input.VERTICAL_KEY_DOWN)),
+            new KeyPressedEvent(down, KeyPressedType.Down, new DelegateHolder(Constants.Input.VERTICAL_KEY_DOWN)),
+            new KeyPressedEvent(up, KeyPressedType.Held, new DelegateHolder(Constants.Input.VERTICAL_KEY_HELD)),
+            new KeyPressedEvent(down, KeyPressedType.Held, new DelegateHolder(Constants.Input.VERTICAL_KEY_HELD)),
+            new KeyPressedEvent(up, KeyPressedType.Up, new DelegateHolder(Constants.Input.VERTICAL_KEY_RELEASED)),
+            new KeyPressedEvent(down, KeyPressedType.Up, new DelegateHolder(Constants.Input.VERTICAL_KEY_RELEASED)),
 
             // select
-            new KeyPressedEvent(select, KeyPressedType.Down, new DelegateHolder("selectKeyDown"), 0.1f), // have a delay of 0.1 seconds for the select key
-            new KeyPressedEvent(select, KeyPressedType.Held, new DelegateHolder("selectKeyHeld")),
-            new KeyPressedEvent(select, KeyPressedType.Up, new DelegateHolder("selectKeyReleased")),
+            new KeyPressedEvent(select, KeyPressedType.Down, new DelegateHolder(Constants.Input.SELECT_KEY_DOWN), 0.1f), // have a delay of 0.1 seconds for the select key
+            new KeyPressedEvent(select, KeyPressedType.Held, new DelegateHolder(Constants.Input.SELECT_KEY_HELD)),
+            new KeyPressedEvent(select, KeyPressedType.Up, new DelegateHolder(Constants.Input.SELECT_KEY_RELEASED)),
 
             // fixed update events go in fixed update in massive if chains
         };
@@ -87,6 +87,7 @@ namespace spacegame
 
         private void Awake()
         {
+            // but sincerely, can't you feel what i'm feeling? i can see my life so clearly burn up burn out i shouldn't do this to myself
             instance = this;
         }
 

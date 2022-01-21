@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scenes/debug_alpha_maptest2.unity
     guid: 30d9226415ebcdd4e9203e19d3ee4fa1
+  - enabled: 1
+    path: Assets/scenes/debug_alpha_maptest3.unity
+    guid: 61f3000b32cb9c94582c8b3ef4afbe8f
   m_configObjects: {}

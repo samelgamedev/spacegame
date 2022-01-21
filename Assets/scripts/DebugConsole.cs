@@ -214,13 +214,13 @@ namespace spacegame
                 {
                     // reset gravity back to 1 and remove vertical movement
                     Player.instance.SetGravity(1);
-                    InputManager.instance.RemoveEvent("verticalKeyHeld", Player.instance.VerticalMovement);
+                    InputManager.instance.RemoveEvent(Constants.Input.VERTICAL_KEY_HELD, Player.instance.VerticalMovement);
                 }
                 else
                 {
                     // set gravity to 0 and allow vertical movement
                     Player.instance.SetGravity(0);
-                    InputManager.instance.AddEvent("verticalKeyHeld", Player.instance.VerticalMovement);
+                    InputManager.instance.AddEvent(Constants.Input.VERTICAL_KEY_HELD, Player.instance.VerticalMovement);
 
                     // not really sure what'd happen if you tried enabling noclip on a ladder but i'm like 98% sure it'd break
                     // so i'll just do this for now

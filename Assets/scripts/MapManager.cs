@@ -18,8 +18,8 @@ namespace spacegame
             Debug.Log($"changing map: {name}, transferPoint {transferPoint}");
 
             Player.instance?.ToggleMovementHooks(false);
-            InputManager.instance.RemoveEvent("verticalKeyDown", UIManager.instance.ProcessInputQueue);
-            InputManager.instance.RemoveEvent("selectKeyDown", UIManager.instance.ProcessInputQueue);
+            InputManager.instance.RemoveEvent(Constants.Input.VERTICAL_KEY_DOWN, UIManager.instance.ProcessInputQueue);
+            InputManager.instance.RemoveEvent(Constants.Input.SELECT_KEY_DOWN, UIManager.instance.ProcessInputQueue);
 
             // load the scene
             AsyncOperation a = SceneManager.LoadSceneAsync(name);

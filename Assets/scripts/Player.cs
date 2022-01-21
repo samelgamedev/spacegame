@@ -12,6 +12,7 @@ namespace spacegame
         private float walkSpeed => 5 * speedMultiplier;
         private float runSpeed => 8 * speedMultiplier;
         public float movementSpeed => Input.GetKey(InputManager.run) ? runSpeed : walkSpeed; // actual movement speed
+        public bool holdingMovementKeys => Input.GetKey(InputManager.left) || Input.GetKey(InputManager.right); // are we schmoovin?
 
         // other movement
         public bool canMove = true;
@@ -64,18 +65,18 @@ namespace spacegame
         {
             if (add)
             {
-                InputManager.instance.AddEvent("horizontalKeyHeld", HorizontalMoveAnimation);
-                InputManager.instance.AddEvent("horizontalKeyHeld", UpdateParallaxesX);
-                InputManager.instance.AddEvent("horizontalKeyReleased", StopHorizontalAnimation);
-                InputManager.instance.AddEvent("selectKeyDown", ProcessInteraction);
+                InputManager.instance.AddEvent(Constants.Input.HORIZONTAL_KEY_HELD, HorizontalMoveAnimation);
+                InputManager.instance.AddEvent(Constants.Input.HORIZONTAL_KEY_HELD, UpdateParallaxesX);
+                InputManager.instance.AddEvent(Constants.Input.HORIZONTAL_KEY_RELEASED, StopHorizontalAnimation);
+                InputManager.instance.AddEvent(Constants.Input.SELECT_KEY_DOWN, ProcessInteraction);
                 InputManager.fixedHorizontalKeyHeld += HorizontalMovement;
             }
             else
             {
-                InputManager.instance.RemoveEvent("horizontalKeyHeld", HorizontalMoveAnimation);
-                InputManager.instance.RemoveEvent("horizontalKeyHeld", UpdateParallaxesX);
-                InputManager.instance.RemoveEvent("horizontalKeyReleased", StopHorizontalAnimation);
-                InputManager.instance.RemoveEvent("selectKeyDown", ProcessInteraction);
+                InputManager.instance.RemoveEvent(Constants.Input.HORIZONTAL_KEY_HELD, HorizontalMoveAnimation);
+                InputManager.instance.RemoveEvent(Constants.Input.HORIZONTAL_KEY_HELD, UpdateParallaxesX);
+                InputManager.instance.RemoveEvent(Constants.Input.HORIZONTAL_KEY_RELEASED, StopHorizontalAnimation);
+                InputManager.instance.RemoveEvent(Constants.Input.SELECT_KEY_DOWN, ProcessInteraction);
                 InputManager.fixedHorizontalKeyHeld -= HorizontalMovement;
             }
         }
@@ -207,24 +208,18 @@ namespace spacegame
         {
             // are we falling/has unity's physics engine gone WOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO
             if (rigidbody2d.velocity != Vector2.zero)
-            {
                 // update the parallaxes y
                 UpdateParallaxesY(new InputManager.KeyPressedEventArgs(KeyCode.None));
-            }
 
             // open in game menu
             if (Input.GetKeyDown(InputManager.menu))
-            {
                 // open menu
                 // the menu manager closes the menu here if it's already open
                 InGameMenuManager.Open();
-            }
 
             // alt map
             if (Input.GetKeyDown(KeyCode.Q))
-            {
                 AltMapManager.instance?.Toggle(); // unless it's null
-            }
         }
 
         private void OnTriggerEnter2D(Collider2D collision)

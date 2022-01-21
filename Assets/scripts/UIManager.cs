@@ -24,8 +24,8 @@ namespace spacegame
                 Instantiate(PrefabManager.instance.GetPrefab("debug ui"), instance.transform);
 
             // hook input manager events to process input queue
-            InputManager.instance.AddEvent("verticalKeyDown", ProcessInputQueue);
-            InputManager.instance.AddEvent("selectKeyDown", ProcessInputQueue);
+            InputManager.instance.AddEvent(Constants.Input.VERTICAL_KEY_DOWN, ProcessInputQueue);
+            InputManager.instance.AddEvent(Constants.Input.SELECT_KEY_DOWN, ProcessInputQueue);
         }
 
         public void ProcessInputQueue(InputManager.KeyPressedEventArgs e)

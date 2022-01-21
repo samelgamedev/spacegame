@@ -11,4 +11,30 @@ cond "@in_args0"
         ;spk "which, when given enough velocity from the cushion, spins, granting alison dopamine"
         # alisonscript bug rn where having more than one branch in a conditional throws a stray end statement error
         ;end_processing
+    when "plant"
+        ;spk "a small potted plant sits by alison's feet"
+        ;spk "something about it seems familiar"
+        ;end_processing
+    when "alpha"
+        ;spk "a sticky note is loosely taped to the wall, around antennae-height from alison"
+        ;spk "read it?"
+        ;goto "alpha_cho"
+        ;end_processing
+end
+
+;end_processing
+
+&alpha_cho
+
+;choice "@ch" "yes" "no"
+cond "@ch"
+    when "yes"
+        ;spk "alison begins reading the note:"
+        ;spk "|sticky note| 'hey guys it's me'"
+        ;spk "|sticky note| 'this game is still very *very* early in development, and pretty much nothing you see here is final'"
+        ;spk "|sticky note| 'please still let me know what you think after you take a look around though,'"
+        ;spk "|sticky note| 'feedback and bug reports would really help a ton'"
+        ;spk "|sticky note| 'that being said, peace out'"
+        ;spk "alison's creator must have put this here before she left; she doesn't recognize it"
+        ;end_processing
 end
