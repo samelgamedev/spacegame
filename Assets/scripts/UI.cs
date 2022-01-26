@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace spacegame
 {
-    public class UI : MonoBehaviour//, IDisposable
+    public class UI : MonoBehaviour, IReadable
     {
         public Text text;
         public Action inputProcessedCallback; // called when dequeued from the UIManager input queue
@@ -17,6 +17,13 @@ namespace spacegame
         public List<UI> alsoDestroy = new List<UI>(); // ui to destroy when destroying this one 
 
         [HideInInspector] public bool readyToDequeue;
+
+        private string _readerAlt;
+        public string readerAlt 
+        {
+            get => _readerAlt; 
+            set => _readerAlt = value; 
+        }
 
         public enum PrintTextOptions
         {
@@ -146,6 +153,11 @@ namespace spacegame
                 // allow processing the input queue
                 UIManager.instance.canProcessInputQueue = true;
             }
+        }
+
+        public virtual string ReadSelf()
+        {
+            return readerAlt == string.Empty ? text.text : readerAlt;
         }
 
         public void AddToInputQueue()

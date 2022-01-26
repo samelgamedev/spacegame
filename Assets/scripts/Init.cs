@@ -12,9 +12,12 @@ namespace spacegame
 
         public static void Initialization()
         {
-            Debug.Log("initializing");
             if (initialized) return;
             initialized = true;
+
+            // initialize logger and speech synthesizer
+            Logger.Init();
+            //ReadToMeManager.Init();
 
             // alisonscript initialization
             alisonscript.Interpreter.RegisterFunctions();
@@ -29,6 +32,8 @@ namespace spacegame
 
             // then go to title screen
             MapManager.ChangeMap("title");
+
+            Logger.WriteLine($"initialized: {Constants.Meta.VERSION}");
         }
     }
 

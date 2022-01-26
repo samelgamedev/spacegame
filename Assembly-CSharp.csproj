@@ -87,7 +87,9 @@
     <Compile Include="Assets\scripts\Interactable.cs" />
     <Compile Include="Assets\scripts\InventoryManager.cs" />
     <Compile Include="Assets\scripts\ItemData.cs" />
+    <Compile Include="Assets\scripts\IReadable.cs" />
     <Compile Include="Assets\scripts\Ladder.cs" />
+    <Compile Include="Assets\scripts\Logger.cs" />
     <Compile Include="Assets\scripts\MainCamera.cs" />
     <Compile Include="Assets\scripts\MapData.cs" />
     <Compile Include="Assets\scripts\MapManager.cs" />
@@ -98,6 +100,7 @@
     <Compile Include="Assets\scripts\Player.cs" />
     <Compile Include="Assets\scripts\PlayerFeet.cs" />
     <Compile Include="Assets\scripts\PrefabManager.cs" />
+    <Compile Include="Assets\scripts\ReadToMeManager.cs" />
     <Compile Include="Assets\scripts\SFXPlayer.cs" />
     <Compile Include="Assets\scripts\SpaceshipDoor.cs" />
     <Compile Include="Assets\scripts\Stars.cs" />

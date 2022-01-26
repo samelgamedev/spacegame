@@ -57,7 +57,7 @@ namespace spacegame.alisonscript
         public IEnumerator Log(FunctionArgs args)
         {
             foreach (string s in args.args) 
-                Debug.Log(s);
+                Logger.WriteLine(s);
             args.callback.Invoke();
 
             yield break;
@@ -158,7 +158,7 @@ namespace spacegame.alisonscript
         public IEnumerator EndProcessing(FunctionArgs args)
         {
             // don't need to invoke the callback here 
-            Debug.Log("end processing");
+            Logger.WriteLine("end processing");
             Interpreter.runningScript.Finished();
             yield break;
         }

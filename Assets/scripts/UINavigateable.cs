@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 namespace spacegame
 {
-    public class UINavigateable : UI
+    public class UINavigateable : UI, IReadable
     {
         public string[] options;
         public int index; // the index position of the currently selected option
@@ -56,9 +56,12 @@ namespace spacegame
                 rect.rect.yMax - (rect.rect.yMax - text.rectTransform.rect.yMax) - 15);
             this.arrow = Instantiate(arrow, new Vector2(arrowPosition.x,/* 25 * (options.Length - 1)*/arrowPosition.y) + (Vector2)gameObject.transform.position, 
                 Quaternion.identity, gameObject.transform);
+
+            // say the selected option if we can
+            //ReadToMeManager.CancelPrompt(ReadToMeManager.GetCurrentlySaying());
+            //ReadToMeManager.SayReadable(this);
         }
 
-        // returns the option the arrow lands on
         public void Navigate(bool up)
         {
             bool moved = false;
@@ -78,7 +81,15 @@ namespace spacegame
                 moved = true;
             }
 
+            //ReadToMeManager.CancelPrompt(ReadToMeManager.GetCurrentlySaying());
+            //ReadToMeManager.SayReadable(this);
+
             if (moved) SFXPlayer.instance.Play("sfx_menu_select");
+        }
+
+        public override string ReadSelf() 
+        {
+            return readerAlt == string.Empty ? selectedOption : readerAlt;
         }
     }
 }

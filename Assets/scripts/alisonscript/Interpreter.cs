@@ -46,11 +46,11 @@ namespace spacegame.alisonscript
                     FunctionAttribute f = (FunctionAttribute)Attribute.GetCustomAttribute(m, typeof(FunctionAttribute));
                     string functionName = f.name;
                     Functions.instance.functions.Add(functionName, m.Name);
-                    Debug.Log($"registered alisonscript function: {functionName} ({m.Name})");
+                    Logger.WriteLine($"registered alisonscript function: {functionName} ({m.Name})");
                 }
             }
 
-            Debug.Log("finished registering functions");
+            Logger.WriteLine("finished registering functions");
         }
 
         public static void Run(string script, params string[] args)

@@ -110,7 +110,7 @@ namespace spacegame.alisonscript
 
                     if (Interpreter.runningScript == null) // how does this happen part 2
                     {
-                        Debug.Log("running script is null " + lineIndex);
+                        Logger.WriteLine("running script is null " + lineIndex);
                         return;
                     }
 
@@ -125,7 +125,7 @@ namespace spacegame.alisonscript
 
         public void AddObject(string objectName, string objectValue)
         {
-            Debug.Log($"adding object: {objectName} with value: {objectValue}");
+            Logger.WriteLine($"adding object: {objectName} with value: {objectValue}");
             if (Interpreter.runningScript.objects.ContainsKey(objectName))
                 // if the script already has an object with the name objectName, set its value
                 Interpreter.runningScript.objects[objectName].value = objectValue;

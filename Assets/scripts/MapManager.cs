@@ -15,7 +15,7 @@ namespace spacegame
 
         public static void ChangeMap(string name, int transferPoint = 0)
         {
-            Debug.Log($"changing map: {name}, transferPoint {transferPoint}");
+            Logger.WriteLine($"changing map: {name}, transferPoint {transferPoint}");
 
             Player.instance?.ToggleMovementHooks(false);
             InputManager.instance.RemoveEvent(Constants.Input.VERTICAL_KEY_DOWN, UIManager.instance.ProcessInputQueue);

@@ -1,1 +1,2 @@
 -r:\Packages\Newtonsoft.Json.13.0.1\lib\net45\Newstonsoft.Json.dll
+-r:\Packages\System.Speech.6.0.2-mauipre.1.22054.8\lib\net6.0\System.Speech.dll

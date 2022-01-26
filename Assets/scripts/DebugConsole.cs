@@ -115,11 +115,11 @@ namespace spacegame
                     if (command != null)
                     {
                         commands.Add(command.name, m.CreateDelegate(typeof(Command)));
-                        Debug.Log($"registered debug command: {command.name} ({m.Name})");
+                        Logger.WriteLine($"registered debug command: {command.name} ({m.Name})");
                     }
                 }
 
-                Debug.Log("finished registering debug commands");
+                Logger.WriteLine("finished registering debug commands");
             }
 
             public static void Call(string command, string[] args)
@@ -140,7 +140,7 @@ namespace spacegame
                                 return;
                             }
 
-                            // Debug.Log($"exception: {ex}");
+                            // Logger.WriteLine($"exception: {ex}");
                             // instance.Out(ex.Message);
                             commands[command].DynamicInvoke(new object[] { args });
                             return;
@@ -150,7 +150,7 @@ namespace spacegame
                 }
                 catch (Exception ex)
                 {
-                    Debug.Log($"exception: {ex}");
+                    Logger.WriteLine($"exception: {ex}");
                     instance.Out(ex.Message);
                 }
             }

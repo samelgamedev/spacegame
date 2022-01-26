@@ -86,7 +86,7 @@ namespace spacegame.alisonscript
                 // then call the function 
                 if (Interpreter.runningScript is null) // how does this happen
                 {
-                    Debug.Log("i guess we're done?");
+                    Logger.WriteLine("i guess we're done?");
                     return;
                 }
                 Functions.instance.Call(functionName, () => Interpreter.runningScript.IncrementIndex(), args); // increment into lineIndex as callback
