@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/scenes/0init.unity
     guid: 26457871f4dda2442a4ca1afbfa36262
   - enabled: 1
+    path: Assets/scenes/low_memory.unity
+    guid: abcf6a3d3b80df54bbb2b5ae5b60fbec
+  - enabled: 1
     path: Assets/scenes/title.unity
     guid: 2f842cd75c2758b489cd880ec09bbf72
   - enabled: 1
@@ -35,4 +38,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scenes/debug_alpha_maptest3.unity
     guid: 61f3000b32cb9c94582c8b3ef4afbe8f
+  - enabled: 1
+    path: Assets/scenes/debug_alpha_lobby.unity
+    guid: 767b654870164494098c89461f518cd7
+  - enabled: 1
+    path: Assets/scenes/debug_alpha_roof.unity
+    guid: 1d3aef7cdd1f9ce47a4bd88fe6ee45b3
+  - enabled: 1
+    path: Assets/scenes/debug_alpha_tabasco.unity
+    guid: b0467c4ddb1e98042833199949386998
+  - enabled: 1
+    path: Assets/scenes/debug_alpha_nebula.unity
+    guid: ba2e341ae133eda4f93a6b5a47fb8519
   m_configObjects: {}

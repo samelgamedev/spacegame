@@ -67,14 +67,14 @@ namespace spacegame.alisonscript
         [Function("wait", 1)] 
         public IEnumerator Wait(FunctionArgs args)
         {
-            yield return new WaitForSeconds(int.Parse(args.args[0]));
+            yield return new WaitForSeconds(int.Parse(args[0]));
             args.callback.Invoke();
         }
 
         [Function("spk", 1)]
         public IEnumerator Speak(FunctionArgs args)
         {
-            string fullText = args.args[0];
+            string fullText = args[0];
             UI speakerBox = null;
 
             // start by getting the speaker, which we do with a regex
@@ -116,10 +116,10 @@ namespace spacegame.alisonscript
         [Function("can_move", 1)] 
         public IEnumerator ToggleMove(FunctionArgs args)
         {
-            if (bool.TryParse(args.args[0], out bool result))
+            if (bool.TryParse(args[0], out bool result))
                 Player.instance.canMove = result;
             else
-                throw new ArgumentException($"failed to parse {args.args[0]} to boolean");
+                throw new ArgumentException($"failed to parse {args[0]} to boolean");
             args.callback.Invoke();
             yield break;
         }
@@ -127,16 +127,23 @@ namespace spacegame.alisonscript
         [Function("jump", 1)]
         public IEnumerator Jump(FunctionArgs args)
         {
-            // don't need to invoke the callback here because the line is processed in lineIndex setter
-            Interpreter.runningScript.lineIndex = int.Parse(args.args[0]);
+            Interpreter.runningScript.lineIndex = int.Parse(args[0]);
+            args.callback.Invoke();
             yield break;
         }
 
         [Function("goto", 1)]
         public IEnumerator GotoLabel(FunctionArgs args) 
         {
-            // don't need to invoke the callback here because the line is processed in lineIndex setter
-            Interpreter.runningScript.JumpToNextOccurence(0, $"&{args.args[0]}");
+            foreach (Line label in from line in Interpreter.runningScript.lines where line.labelData.isLabel select line)
+            {
+                if (label.labelData.labelName == args[0])
+                {
+                    Interpreter.lineIndex = label.index;
+                    Interpreter.EvaluateLine(label);
+                }
+            }
+            args.callback.Invoke();
             yield break;
         }
 
@@ -147,7 +154,7 @@ namespace spacegame.alisonscript
             ui.SetOptions(args.args.Skip(1).ToArray(), // first element of the array is the string that the navigateable ui is hovering over
                 new Action(() =>
                 {
-                    Interpreter.runningScript.AddObject(args.args[0], ui.selectedOption);
+                    Interpreter.runningScript.AddObject(args[0], ui.selectedOption);
                     args.callback.Invoke();
                     SFXPlayer.instance.Play("sfx_menu_confirm");
                 })) ;
@@ -157,16 +164,23 @@ namespace spacegame.alisonscript
         [Function("end_processing")]
         public IEnumerator EndProcessing(FunctionArgs args)
         {
-            // don't need to invoke the callback here 
-            Logger.WriteLine("end processing");
             Interpreter.runningScript.Finished();
+            Interpreter.DisposeRunningScript();
             yield break;
         }
 
         [Function("change_map", 2)]
         public IEnumerator ChangeMap(FunctionArgs args)
         {
-            MapManager.ChangeMap(args.args[0], int.Parse(args.args[1]));
+            MapManager.ChangeMap(args[0], int.Parse(args[1]));
+            args.callback.Invoke();
+            yield break;
+        }
+
+        [Function("bgm", 1)]
+        public IEnumerator PlayBgm(FunctionArgs args)
+        {
+            BGMPlayer.instance.Play(args[0]);
             args.callback.Invoke();
             yield break;
         }
@@ -174,7 +188,7 @@ namespace spacegame.alisonscript
         [Function("sfx", 1)]
         public IEnumerator PlaySfx(FunctionArgs args)
         {
-            SFXPlayer.instance.Play(args.args[0]);
+            SFXPlayer.instance.Play(args[0]);
             args.callback.Invoke();
             yield break;
         }
@@ -184,10 +198,10 @@ namespace spacegame.alisonscript
         {
             // get the npc we're requesting
             GameObject npc = (from g in GameObject.FindGameObjectsWithTag("npc") 
-                              where g.name == args.args[0]
+                              where g.name == args[0]
                               select g).ToArray()[0];
             // move them
-            npc.GetComponent<NPC>().MoveTo(new Vector2(float.Parse(args.args[1]), float.Parse(args.args[2])));
+            npc.GetComponent<NPC>().MoveTo(new Vector2(float.Parse(args[1]), float.Parse(args[2])));
             args.callback.Invoke();
             yield break;
         }
@@ -197,12 +211,20 @@ namespace spacegame.alisonscript
         {
             // get the npc we're requesting
             GameObject npc = (from g in GameObject.FindGameObjectsWithTag("npc")
-                              where g.name == args.args[0]
+                              where g.name == args[0]
                               select g).ToArray()[0];
             // make them a follower
             Follower follower = npc.GetComponent<NPC>().BecomeFollower();
             Player.followers.Add(follower);
 
+            args.callback.Invoke();
+            yield break;
+        }
+
+        [Function("set_gsb", 2)]
+        public IEnumerator SetGameStateBool(FunctionArgs args)
+        {
+            GameState.SetBoolean(args[0], bool.Parse(args[1]));
             args.callback.Invoke();
             yield break;
         }
@@ -216,6 +238,14 @@ namespace spacegame.alisonscript
             {
                 this.callback = callback;
                 this.args = args;
+            }
+            
+            // allow accessing the args array by just mentioning the instance of the struct
+            // so we can just use args[0] instead of args.args[0]
+            public string this[int index]
+            {
+                get => args[index];
+                set => args[index] = value;
             }
         }
     }

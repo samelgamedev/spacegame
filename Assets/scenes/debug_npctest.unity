@@ -447,8 +447,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoBgm: bgm_samel
+  stopBgm: 0
   transferPoints:
   - {x: 0, y: 0}
+  parallaxes:
+  - sprite: {fileID: 21300000, guid: 2e1e869cc6a0e224cb7f2414378a6fa2, type: 3}
+    followPlayerX: 1
+    followPlayerY: 1
+    moveX: 0
+    moveY: 0
+    scaleToScreen: 1
+  parallaxObjects: []
+  mainTileGrid: {fileID: 0}
+  altTileGrid: {fileID: 0}
 --- !u!1001 &830998318
 PrefabInstance:
   m_ObjectHideFlags: 0

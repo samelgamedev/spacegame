@@ -11,6 +11,7 @@ namespace spacegame
     {
         public static class Input
         {
+            // i forgot why these were camelcased
             public const string HORIZONTAL_KEY_DOWN = "horizontalKeyDown";
             public const string HORIZONTAL_KEY_HELD = "horizontalKeyHeld";
             public const string HORIZONTAL_KEY_RELEASED = "horizontalKeyReleased";
@@ -25,7 +26,7 @@ namespace spacegame
         }
         public static class Meta
         {
-            public const string VERSION = "pre-alpha 0.dev";
+            public const string VERSION = "alpha 1.1";
         }
     }
 }

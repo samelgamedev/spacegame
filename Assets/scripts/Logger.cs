@@ -13,8 +13,9 @@ namespace spacegame
         // the logger wraps a private StreamWriter instance
         // that's closed after the application is quit
         private static StreamWriter writer;
-        private static readonly string logsPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\\My Games\\space!!!!\\logs\\";
+        public static readonly string logsPath = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}\\My Games\\space!!!!\\logs\\";
 
+        public static bool initialized;
         public static void Init()
         {
             try
@@ -30,10 +31,11 @@ namespace spacegame
                 Application.quitting += Done;
 
                 WriteLine("logger initialized");
+                initialized = true;
             }
             catch (Exception ex)
             {
-                Debug.Log($"an exception was encountered in the logger!\n{ex}");
+                Debug.Log($"an exception was encountered in the logger initialization!\n{ex}");
             }
         }
 

@@ -10,6 +10,7 @@ using System.Reflection;
 using System.Linq.Expressions;
 using System.Text.RegularExpressions;
 using System.IO;
+using System.Diagnostics;
 
 namespace spacegame
 {
@@ -238,6 +239,24 @@ namespace spacegame
             public static void ResetVelocity(string[] args)
             {
                 Player.instance.rigidbody2d.velocity = Vector2.zero;
+            }
+
+            [Command("logs")]
+            public static void OpenLogs(string[] args)
+            {
+                Process.Start(Logger.logsPath);
+            }
+
+            [Command("gsvis")]
+            public static void GameStateVisualizer(string[] args)
+            {
+                DebugUI.displayGameStateFlags = !DebugUI.displayGameStateFlags;
+            }
+
+            [Command("script", 1)]
+            public static void RunScript(string[] args)
+            {
+                alisonscript.Interpreter.Run(args[0]);
             }
         }
 

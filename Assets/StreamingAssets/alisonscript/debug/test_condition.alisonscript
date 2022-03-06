@@ -1,14 +1,14 @@
 @thingy "howsit"
 
 cond "@thingy"
-    when "hello!"
-        ;spk "hello!"
-    when "howsit"
-        ;spk "howsit goin"
-    when "something else"
-        ;spk "also"
-    when "howsit"
-        ;spk "i'm the debug guy"
+	when "hello!"
+		;spk "hello!"
+	when "howsit"
+		;spk "howsit goin"
+	when "something else"
+		;spk "also"
+	when "howsit"
+		;spk "i'm the debug guy"
 end
 
 ;spk "|the debug guy| all finished"

@@ -10,6 +10,7 @@ namespace spacegame
     public static class InGameMenuManager 
     {
         private static bool open;
+        private static bool canClose;
         private static UINavigateable ui;
 
         public static void Open()
@@ -36,8 +37,11 @@ namespace spacegame
             }, new Action(() => ProcessMenuButton(ui.selectedOption)));
         }
 
-        public static void Close()
+        public static void Close(bool force = false)
         {
+            // disallow closing the menu while there's something else in the input queue
+            if (!canClose && !force) return;
+
             open = false;
 
             // destroy ui
@@ -127,14 +131,16 @@ namespace spacegame
                         // callback
                         new Action(() => 
                         {
+                            canClose = true;
+                            options.DestroyGameObject();
                             switch (options.selectedOption)
                             {
                                 case "no": // do nothing
                                     // destroy ui after callback isn't working here for some reason so i'll just do this
-                                    options.DestroyGameObject();
+                                    SFXPlayer.instance.Play("sfx_menu_back");
                                     break;
                                 case "yes":
-                                    Close();
+                                    Close(true);
                                     MapManager.ChangeMap("title");
                                     break;
                             }
@@ -142,7 +148,8 @@ namespace spacegame
                     });
 
                     textbox = UIManager.instance.New(new Vector2(92, 94), new Vector2(484, 257));
-                    
+
+                    canClose = false;
                     textbox.StartCoroutine(textbox.PrintText(
                         $"are you sure you want to return to the title screen? (last saved format this seconds ago)",
                         createOptions, UI.PrintTextOptions.CallbackAfterPrinting | UI.PrintTextOptions.DontPushToInputQueue));

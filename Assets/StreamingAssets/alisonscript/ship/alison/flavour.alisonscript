@@ -1,40 +1,31 @@
 cond "@in_args0"
-    when "console"
-        ;spk "alison approaches the ship's cockpit console at the front of the room"
-        ;spk "from here, she can use the ship's navigation system,"
-        ;spk "as well as speak through the intercom and pretend she's an airplane pilot"
-        ;spk "to her detriment, however, she can't reach any of the buttons without standing on her chair"
-        ;end_processing
-    when "chair"
-        ;spk "beside the console is a stiff leather chair, a few inches shorter than alison"
-        ;spk "the cushion part of the chair is attached to the base via a thick, vertical nylon rod,"
-        ;spk "which, when given enough velocity from the cushion, spins, granting alison dopamine"
-        # alisonscript bug rn where having more than one branch in a conditional throws a stray end statement error
-        ;end_processing
-    when "plant"
-        ;spk "a small potted plant sits by alison's feet"
-        ;spk "something about it seems familiar"
-        ;end_processing
-    when "alpha"
-        ;spk "a sticky note is loosely taped to the wall, around antennae-height from alison"
-        ;spk "read it?"
-        ;goto "alpha_cho"
-        ;end_processing
-end
+	when "console"
+		;spk "alison approaches the ship's cockpit console at the front of the room"
+		;spk "from here, she can use the ship's navigation system,"
+		;spk "as well as speak through the intercom and pretend she's an airplane pilot"
+		;spk "to her detriment, however, she can't reach any of the buttons without standing on her chair"
+	when "chair"
+		;spk "beside the console is a stiff leather chair, a few inches shorter than alison"
+		;spk "the cushion part of the chair is attached to the base via a thick, vertical nylon rod,"
+		;spk "which, when given enough velocity from the cushion, spins, granting alison dopamine"
+	when "plant"
+		;spk "a small potted plant sits by alison's feet"
+		;spk "something about it seems familiar"
+	when "alpha"
+		;spk "a sticky note is loosely taped to the wall, around antennae-height from alison"
+		;spk "read it?"
 
-;end_processing
-
-&alpha_cho
-
-;choice "@ch" "yes" "no"
-cond "@ch"
-    when "yes"
-        ;spk "alison begins reading the note:"
-        ;spk "|sticky note| 'hey guys it's me'"
-        ;spk "|sticky note| 'this game is still very *very* early in development, and pretty much nothing you see here is final'"
-        ;spk "|sticky note| 'please still let me know what you think after you take a look around though,'"
-        ;spk "|sticky note| 'feedback and bug reports would really help a ton'"
-        ;spk "|sticky note| 'that being said, peace out'"
-        ;spk "alison's creator must have put this here before she left; she doesn't recognize it"
-        ;end_processing
+		;choice "@ch" "yes" "no"
+		cond "@ch"
+			when "yes"
+				;spk "alison begins reading the note:"
+				;spk "|sticky note| 'hey guys it's me'"
+				;spk "|sticky note| 'this game is still very *very* early in development, and pretty much nothing you see here is final'"
+				;spk "|sticky note| 'the current state of the game is more of a rough tech demo to show off what i've been working on for the last few months,'"
+				;spk "|sticky note| 'while i'm still working on some writing stuff'"
+				;spk "|sticky note| 'please still let me know what you think after you take a look around though,'"
+				;spk "|sticky note| 'feedback and bug reports would really help a ton'"
+				;spk "|sticky note| 'that being said, peace out'"
+				;spk "alison's creator must have put this here before she left; she doesn't recognize it"
+		end
 end

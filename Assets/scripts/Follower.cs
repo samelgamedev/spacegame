@@ -23,13 +23,18 @@ namespace spacegame
             bool right = Player.instance.facingRight;
             Vector2 position = new Vector2(Player.instance.onLadder 
                 ? Player.instance.transform.position.x : (right ? Player.instance.transform.position.x - index - 1
-                : Player.instance.transform.position.x + index + 1), Player.instance.onLadder
-                ? Player.instance.transform.position.y - index - 1 : Player.instance.transform.position.y);
+                : Player.instance.transform.position.x + index + 1), transform.position.y);
+            // only update the y position here if the player isn't on stairs
+            // because we'll update the follower's position manually inside Stairs.cs
+            if (!Player.instance.onStairs)
+                position = new Vector2(position.x, Player.instance.onLadder ?
+                    Player.instance.transform.position.y - index - 1 : Player.instance.transform.position.y);
 
             PlayAnimation(walkAnimation);
             MoveTo(position, 
                 // subtract the y of the player's rigidbody2d to account for gravity
-                Player.instance.movementSpeed - Player.instance.rigidbody2d.velocity.y, 
+                // also, go very fast on stairs
+                Player.instance.onStairs ? 10 : (Player.instance.movementSpeed - Player.instance.rigidbody2d.velocity.y), 
                 // we'll play and stop the walk animation ourselves
                 false);
         }

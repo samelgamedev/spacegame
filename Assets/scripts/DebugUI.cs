@@ -13,6 +13,7 @@ namespace spacegame
         public Text debugText;
 
         public static string lastLogMessage;
+        public static bool displayGameStateFlags;
 
         // Update is called once per frame
         void Update()
@@ -35,6 +36,13 @@ namespace spacegame
                 + $"d: {(Player.instance != null ? Player.instance.rigidbody2d.drag.ToString() : "<none>")} "
                 + $"ad: {(Player.instance != null ? Player.instance.rigidbody2d.angularDrag.ToString() : "<none>")}\n"
                 + $"last log message: {lastLogMessage}";
+            if (displayGameStateFlags)
+            {
+                foreach (string key in GameState.GetBooleansDictionary().Keys)
+                    debugText.text += $"\n{key}: {GameState.GetBoolean(key)}";
+                foreach (string key in GameState.GetIntegersDictionary().Keys)
+                    debugText.text += $"\n{key}: {GameState.GetInteger(key)}";
+            }
         }
     }
 }

@@ -11,6 +11,7 @@ namespace spacegame
     public class NPC : Interactable
     {
         public Animator anim;
+        public Rigidbody2D rigidbody2d;
 
         public string idleAnimation = "idle";
         public string walkAnimation = "walk";
@@ -19,6 +20,7 @@ namespace spacegame
 
         public virtual void Awake()
         {
+            rigidbody2d = GetComponent<Rigidbody2D>();
             anim = GetComponent<Animator>();
             anim.Play(idleAnimation);
         }
@@ -54,7 +56,6 @@ namespace spacegame
             facingRight = !facingRight;
         }
 
-        // please unity add casting components
         public Follower BecomeFollower()
         {
             // destroy the npc component and re-add the new follower

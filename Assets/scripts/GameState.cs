@@ -14,8 +14,20 @@ namespace spacegame
         private static Dictionary<string, bool> booleans = new Dictionary<string, bool>();
         private static Dictionary<string, int> integers = new Dictionary<string, int>();
 
+        public static Dictionary<string, bool> GetBooleansDictionary()
+        {
+            return booleans;
+        }
+
+        public static Dictionary<string, int> GetIntegersDictionary()
+        {
+            return integers;
+        }
+
         public static bool GetBoolean(string name)
         {
+            Logger.WriteLine($"game state bool get: {name}");
+
             // if the booleans dictionary has a value with the key name, return it
             if (booleans.TryGetValue(name, out bool result))
                 return result;
@@ -26,6 +38,8 @@ namespace spacegame
 
         public static void SetBoolean(string name, bool value)
         {
+            Logger.WriteLine($"game state bool set: {name}: {value}");
+
             // if the booleans dictionary has a key with name, set the value to the input
             if (booleans.ContainsKey(name))
                 booleans[name] = value;

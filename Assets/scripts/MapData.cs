@@ -14,6 +14,8 @@ namespace spacegame
         public bool stopBgm;
         public Vector2[] transferPoints;
         public Parallax.ParallaxData[] parallaxes = new Parallax.ParallaxData[0];
+        public string autoScript;
+        public string[] autoScriptArgs;
 
         // singleton instance of the current map data
         public static MapData map;
@@ -69,6 +71,9 @@ namespace spacegame
 
             if (transferPoints != null && transferPoints.Length > 0)
                 Player.instance.gameObject.transform.position = transferPoints[transferPointIndex];
+
+            if (!string.IsNullOrEmpty(autoScript) && !string.IsNullOrWhiteSpace(autoScript))
+                alisonscript.Interpreter.Run(autoScript, autoScriptArgs);
         }
     }
 }

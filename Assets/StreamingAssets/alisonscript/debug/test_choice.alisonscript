@@ -5,14 +5,14 @@
 #"cool" "uncool" "cooler"
 
 cond "@ch"
-    when "yes"
-        ;spk "|the debug guy| you selected 'yes'"
-    when "no"
-        ;spk "|the debug guy| you selected 'no'"
-    when "maybe"
-        ;spk "|the debug guy| you selected 'maybe'"
-    when "so"
-        ;spk "|the debug guy| you selected 'so'"
+	when "yes"
+		;spk "|the debug guy| you selected 'yes'"
+	when "no"
+		;spk "|the debug guy| you selected 'no'"
+	when "maybe"
+		;spk "|the debug guy| you selected 'maybe'"
+	when "so"
+		;spk "|the debug guy| you selected 'so'"
 end
 
 ;spk "|the debug guy| cool choice"

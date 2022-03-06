@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 namespace spacegame
@@ -12,11 +13,14 @@ namespace spacegame
     public class TitleScreen : MonoBehaviour
     {
         private UINavigateable menu;
+        public Text versionText;
 
         private void Start()
         {
             CreateMainMenu();
             StartCoroutine(DebugCode());
+
+            versionText.text = Constants.Meta.VERSION;
         }
 
         private void CreateMainMenu()

@@ -1,0 +1,17 @@
+ifgsb "a_elev" "False"
+	;spk "this is one of the most high-tech elevator brands in the galaxy; it even has air conditioning!"
+	;set_gsb "a_elev" "True"
+end
+;spk "where do you want it to take you?"
+
+;choice "@ch" "nevermind" "lobby" "tabasco" "nebula" "roof"
+cond "@ch"
+	when "lobby"
+		;change_map "debug_alpha_lobby" "1"
+	when "tabasco"
+		;change_map "debug_alpha_tabasco" "0"
+	when "nebula"
+		;change_map "debug_alpha_nebula" "0"
+	when "roof"
+		;change_map "debug_alpha_roof" "0"
+end

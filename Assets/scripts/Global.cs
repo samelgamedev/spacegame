@@ -34,7 +34,9 @@ namespace spacegame
 
             Init.Initialization();
 
+            // hook log message received and low memory callbacks
             Application.logMessageReceived += LogMessageHandler;
+            Application.lowMemory += new Application.LowMemoryCallback(() => SceneManager.LoadScene("low_memory")); // please never happen ever please never happen ever please never 
         }
 
         private void LogMessageHandler(string condition, string stackTrace, LogType type)
@@ -52,18 +54,18 @@ namespace spacegame
 
                     // get prefab
                     GameObject g = PrefabManager.instance.GetPrefab("exception msg");
-                    Instantiate(g,
+                    GameObject msg = Instantiate(g,
                         // ui manager is attached to the canvas
                         UIManager.instance.transform.position, Quaternion.identity, UIManager.instance.transform);
                     // set text
                     // clamp the length of the stack trace substring between 0 and 200 so we don't get an index out of range
-                    g.GetComponentInChildren<Text>().text = $"an exception was encountered:\n\n{condition}\n{stackTrace.Substring(0, Mathf.Clamp(stackTrace.Length, 0, 200)) + "..."}\n\nthe full stack trace was logged";
+                    msg.GetComponentInChildren<Text>().text = $"an exception was encountered:\n\n{condition}\n{stackTrace.Substring(0, Mathf.Clamp(stackTrace.Length, 0, 200)) + "..."}\n\nthe full stack trace was logged";
 
                     Logger.WriteLine($"\n===============================\n");
 
                     // this doesn't work for no reason
                     // get handy dandies to destroy the ui after the select key is pressed unless the handy dandies instance is null
-                    StartCoroutine(HandyDandies.instance?.DoAfter(() => Input.GetKeyDown(InputManager.select), () => Destroy(g)));
+                    StartCoroutine(HandyDandies.instance?.DoAfter(() => Input.GetKeyDown(InputManager.select), () => Destroy(msg)));
                 }
                 catch (Exception ex)
                 {

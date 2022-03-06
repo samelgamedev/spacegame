@@ -299,6 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ed7f2280577e841a670257b3f1f8a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  versionText: {fileID: 1589515007}
 --- !u!4 &866091687
 Transform:
   m_ObjectHideFlags: 0
@@ -326,6 +327,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   autoBgm: bgm_title
+  stopBgm: 0
   transferPoints: []
   parallaxes:
   - sprite: {fileID: 21300000, guid: 2e1e869cc6a0e224cb7f2414378a6fa2, type: 3}
@@ -334,6 +336,8 @@ MonoBehaviour:
     moveX: 0
     moveY: 0
     scaleToScreen: 1
+  autoScript: 
+  autoScriptArgs: []
   parallaxObjects: []
   mainTileGrid: {fileID: 0}
   altTileGrid: {fileID: 0}
@@ -658,7 +662,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: pre-alpha 0.dev
+  m_Text: i am the version
 --- !u!222 &1589515008
 CanvasRenderer:
   m_ObjectHideFlags: 0

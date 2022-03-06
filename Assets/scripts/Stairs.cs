@@ -9,13 +9,14 @@ namespace spacegame
 {
     public class Stairs : MonoBehaviour
     {
-        private Player player; // the player component if the player is on the stairs
+        [SerializeField] private Player player; // the player component if the player is on the stairs
         private EdgeCollider2D stairsCollider; // the collider of the stairs, which is stored in a child game object
 
         public void EnterStairs(Player player)
         {
             // this is our player
             this.player = player;
+            player.onStairs = true;
 
             // set the player's gravity to 0
             player.SetGravity(0);
@@ -25,6 +26,7 @@ namespace spacegame
         {
             // reset the player's gravity and set the player reference to null
             player.SetGravity(1);
+            this.player.onStairs = false;
             this.player = null;
         }
 
@@ -44,16 +46,22 @@ namespace spacegame
                 // disable the constraints
                 player.rigidbody2d.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
 
-            // fire a raycast down from the player
-            // if the raycast hit the stairs, move the player to the bottom of the ray hit
-            foreach (RaycastHit2D ray in Physics2D.RaycastAll(player.transform.position, Vector2.down))
+            List<MonoBehaviour> thingsThatAreOnTheStairs = new List<MonoBehaviour> { player };
+            thingsThatAreOnTheStairs.AddRange(Player.followers);
+
+            // fire a raycast down from each thing that is on the stairs
+            // if the raycast hit the stairs, move the thing to the bottom of the ray hit
+            foreach (MonoBehaviour m in thingsThatAreOnTheStairs)
             {
-                if (ray.transform == stairsCollider.transform)
+                foreach (RaycastHit2D ray in Physics2D.RaycastAll(m.transform.position, Vector2.down))
                 {
-                    player.transform.position = new Vector3(player.transform.position.x,
-                        ray.point.y + 1,
-                        player.transform.position.z);
-                    break;
+                    if (ray.transform == stairsCollider.transform)
+                    {
+                        m.transform.position = new Vector3(m.transform.position.x,
+                            ray.point.y + 1,
+                            m.transform.position.z);
+                        break;
+                    }
                 }
             }
         }

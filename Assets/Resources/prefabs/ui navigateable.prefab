@@ -17,6 +17,7 @@ MonoBehaviour:
   readyToDequeue: 0
   options: []
   index: 0
+  customPrintTextOptions: 0
 --- !u!1001 &4783293141925883007
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -173,6 +174,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_AnchorMax.x
       value: 0.93000007
+      objectReference: {fileID: 0}
+    - target: {fileID: 1645538144161315524, guid: 7573680d0c780c3499186c70e24247b8,
+        type: 3}
+      propertyPath: m_FontData.m_HorizontalOverflow
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: -5835157916020646279, guid: 7573680d0c780c3499186c70e24247b8, type: 3}

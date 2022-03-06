@@ -1,0 +1,10 @@
+cond "@in_args0"
+	when "counter"
+		;spk "alison has to gather every last drop of her impulse control to not jump on the counter and do a silly dance"
+	when "tabasco"
+		;spk "alison has reached the room with several dozen barrels of raw tabasco sauce"
+		;spk "if she so much as strokes any of the barrels with her finger,"
+		;spk "the entire building will self-destruct and the barrels will be ejected into space as a security mechanism"
+		;spk "fortunately, alison is traumatized from trying to put tabasco sauce in her coffee,"
+		;spk "so she's staying as far from the barrels as possible"
+end

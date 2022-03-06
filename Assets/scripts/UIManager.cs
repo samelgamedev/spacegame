@@ -19,7 +19,10 @@ namespace spacegame
             instance = this;
             canvas = gameObject;
 
-            if (Global.debugMode)
+            // UIManager is before Global in the execution order, so we check whether the logger has been initialized
+            // before checking whether debug mode is on
+            // because Global.debugMode wraps a game state boolean called debug_mode, and getting a game state boolean logs to the logger
+            if (Logger.initialized && Global.debugMode)
                 // create debug ui
                 Instantiate(PrefabManager.instance.GetPrefab("debug ui"), instance.transform);
 

@@ -11,12 +11,11 @@ namespace spacegame.alisonscript
 {
     public class RunningScript 
     {
-        public List<Line> lines;
-        public List<Label> labels = new List<Label>();
-        public Dictionary<string, Object> objects = new Dictionary<string, Object>();
-
-        public bool inCond;
-        public string condObjectName;
+        public readonly List<Line> lines;
+        public Dictionary<string, AlisonscriptObject<object>> objects = new Dictionary<string, AlisonscriptObject<object>>();
+        // keywords that currently "encapsulate" the script, such as cond
+        // the encapsulation stack can be popped using the end keyword
+        public Stack<IEncapsulateableKeyword> encapsulationStack = new Stack<IEncapsulateableKeyword>();
         
         private int _lineIndex;
         public int lineIndex
@@ -35,95 +34,61 @@ namespace spacegame.alisonscript
                 }
 
                 _lineIndex = value;
-                lines[_lineIndex].Process(this);
             }
         }
+        public int depth;
+
+        public bool finished;
 
         public RunningScript(List<Line> lines)
         {
             this.lines = lines;
-
-            // create labels
-            foreach (
-                Line line in from line in lines where line // why do you call it oven when you of in the cold food of out hot eat the food
-                .contents.StartsWith("&") select line)
-            {
-                // use the same regex in Line to just get the name of the label without the args
-                string labelName = new Regex("\".*?\"|\\s").Replace(line.contents, string.Empty);
-
-                // then get the args 
-                string[] args = Line.ArgsRegex(line);
-
-                // then create the label and add it to the labels list
-                labels.Add(new Label(labelName, line.index, args));
-            }
         }
 
-        public bool ConditionalTrue(string objectName, string value)
-        {
-            if (!objects.ContainsKey(objectName))
-                throw new AlisonscriptSyntaxError(GetCurrentLine(), $"the current script does not have an object called {objectName}");
-
-            // compare the object's value to the inputted value
-            return objects[objectName].value == value;
-        }
-
-        // NEVER use this get the actual line index, instead just get lineIndex
+        // NEVER use this to get the actual line index, instead just get lineIndex
         // this is just a tidy way of getting the current line for syntax errors
+        // e.g. throw new AlisonscriptSyntaxError(runningScript.GetCurrentLine(), "cometh hithereth, don the dunce hat");
         public int GetCurrentLine()
         {
             return lineIndex + 1;
         }
 
-        public void IncrementIndex()
-        {
-            Interpreter.runningScript.lineIndex++;
-        }
-
         public void Finished()
         {
+            finished = true;
             Player.instance.canMove = true;
-            Interpreter.DisposeRunningScript();
             Interpreter.interpreterRunning = false;
         }
         
-        public Label GetLabelByName(int start, string name)
+        public Line GetLabelByName(string name)
         {
-            for (int i = start; i < labels.Count; i++)
-                if (labels[i].name == name)
-                    return labels[i];
-            throw new Exception($"a label with the name \"{name}\" could not be found from index position {start}");
+            IEnumerable<Line> labels = from line in lines where line.labelData.isLabel select line;
+            
+            foreach (Line line in labels)
+                if (line.labelData.labelName == name)
+                    return line;
+            throw new Exception($"no such label with the name \"{name}\"");
         }
 
-        public void JumpToNextOccurence(int start, string input)
+        public AlisonscriptObject<object> GetObject(string name)
         {
-            for (int i = start + 1; i < lines.Count; i++)
+            if (!objects.ContainsKey(name))
+                return null;
+            return objects[name];
+        }
+
+        public bool TryGetObject(string name, out AlisonscriptObject<object> obj)
+        {
+            if (!objects.ContainsKey(name))
             {
-                // remove indenting
-                Regex indenting = new Regex(@"\A\s*");
-                string line = indenting.Replace(lines[i], string.Empty);
-
-                if (line.StartsWith(input)
-                    || (input == "when" && line.StartsWith("end"))) // also jump to end if the input is when to break out of conditionals
-                {
-                    lineIndex = i;
-
-                    if (Interpreter.runningScript == null) // how does this happen part 2
-                    {
-                        Logger.WriteLine("running script is null " + lineIndex);
-                        return;
-                    }
-
-                    // break out of conditional if the line isn't in one
-                    if (!Interpreter.runningScript.lines[lineIndex].inConditional)
-                        Interpreter.runningScript.inCond = false;
-                    return;
-                }
+                obj = null;
+                return false;
             }
-            throw new Exception($"couldn't find an occurence of {input} from {start}");
+            obj = objects[name];
+            return true;
         }
 
-        public void AddObject(string objectName, string objectValue)
+        public void AddObject(string objectName, object objectValue)
         {
             Logger.WriteLine($"adding object: {objectName} with value: {objectValue}");
             if (Interpreter.runningScript.objects.ContainsKey(objectName))
@@ -131,7 +96,7 @@ namespace spacegame.alisonscript
                 Interpreter.runningScript.objects[objectName].value = objectValue;
             else
                 // otherwise, create it and add it
-                Interpreter.runningScript.objects.Add(objectName, new Object(objectValue));
+                Interpreter.runningScript.objects.Add(objectName, new AlisonscriptObject<object>(objectValue));
         }
     }
 }

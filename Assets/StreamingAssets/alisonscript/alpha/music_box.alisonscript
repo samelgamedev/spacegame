@@ -1,0 +1,25 @@
+cond "@in_args0"
+	when "init"
+		ifgsb "a_mbox"
+			;bgm "bgm_alpha_mbox"
+		end
+		;end_processing
+end
+
+ifgsb "a_mbox"
+	;spk "the music box is playing a gentle tune"
+	;end_processing
+end
+
+;spk "alison approaches a small wooden music box sitting alone on the catwalks"
+;spk "there's a symbol representing a planet carved into its heart"
+;spk "wind the turny thing?"
+
+;choice "@ch" "yes" "no"
+cond "@ch"
+	when "yes"
+		;bgm "bgm_alpha_mbox"
+		;set_gsb "a_mbox" "True"
+	when "no"
+		;spk "alison decides to leave it alone"
+end

@@ -5,7 +5,8 @@ using System;
 
 namespace spacegame
 {
-    public class Player : MonoBehaviour
+    // this is sealed to futureproof my code from my own clownery
+    public sealed class Player : MonoBehaviour
     {
         // speed stuff
         public float speedMultiplier = 1; // run/walk speed is always multiplied by speedMultiplier
@@ -18,12 +19,13 @@ namespace spacegame
         public bool canMove = true;
         [HideInInspector] public bool facingRight = true;
         [HideInInspector] public bool onLadder;
+        public bool onStairs;
 
         // followers
         public static List<Follower> followers = new List<Follower>();
 
         // interaction
-        [SerializeField] private Interactable interactable; // the interactable component of the game object the player is colliding with that they can interact with
+        public Interactable interactable; // the interactable component of the game object the player is colliding, if that game object has one
         public bool canInteract
         {
             get
@@ -31,23 +33,7 @@ namespace spacegame
                 return interactable != null;
             }
         }
-        private Transform canInteractObj; // the game object that becomes active when the player can interact with an object
-
-        // can open menu
-        // not necessary for now, but leaving it commented out just in case
-        /*
-        private bool _canOpenMenu;
-        public bool canOpenMenu
-        {
-            get
-            {
-                return canMove || _canOpenMenu;
-            }
-            set
-            {
-                _canOpenMenu = value;
-            }
-        }*/
+        [HideInInspector] public Transform canInteractObj; // the game object that becomes active when the player can interact with an object
 
         // components
         [HideInInspector] public Animator animator;
@@ -227,8 +213,15 @@ namespace spacegame
             if ((collision.CompareTag("interactable") || collision.CompareTag("npc"))
                 && collision.TryGetComponent(out Interactable i) && i.doOnInteract != null)
             {
-                interactable = i;
-                canInteractObj.gameObject.SetActive(true);
+                if (i.onTouch)
+                {
+                    i.OnInteract();
+                }
+                else
+                {
+                    interactable = i;
+                    canInteractObj.gameObject.SetActive(true);
+                }
             }
         }
 

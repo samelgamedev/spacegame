@@ -17,7 +17,7 @@ namespace spacegame
             }
         }
 
-        // assigned in inspector
+        // all bgm/sfx files are in Resources/ and are loaded in Init.Initialization
         public AudioClip[] bgm;
 
         // Start is called before the first frame update

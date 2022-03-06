@@ -9,7 +9,7 @@ using UnityEngine.UI;
 
 namespace spacegame
 {
-    public class UI : MonoBehaviour, IReadable
+    public class UI : MonoBehaviour
     {
         public Text text;
         public Action inputProcessedCallback; // called when dequeued from the UIManager input queue
@@ -17,13 +17,6 @@ namespace spacegame
         public List<UI> alsoDestroy = new List<UI>(); // ui to destroy when destroying this one 
 
         [HideInInspector] public bool readyToDequeue;
-
-        private string _readerAlt;
-        public string readerAlt 
-        {
-            get => _readerAlt; 
-            set => _readerAlt = value; 
-        }
 
         public enum PrintTextOptions
         {
@@ -58,7 +51,6 @@ namespace spacegame
             text.alignment = alignment;
         }
 
-        // TODO: tidy this up
         // also check out the stack overflow page i stole this code from: https://www.taste.com.au/recipes/collections/spaghetti-recipes
         public virtual IEnumerator PrintText(
             string text, // text input
@@ -122,30 +114,6 @@ namespace spacegame
                 if (callback != null)
                     inputProcessedCallback += callback;
 
-                /*
-                // if a callback wasn't given and we're told to destroy the ui, destroy the ui
-                if (callback is null && options.HasFlag(PrintTextOptions.DestroyUIAfterCallback))
-                {
-                    
-                }
-                // if a callback was given and we're told to destroy the ui, invoke the callback and destroy the ui
-                else if (callback != null && options.HasFlag(PrintTextOptions.DestroyUIAfterCallback))
-                {
-                    inputProcessedCallback = new Action(() =>
-                    {
-                        callback.Invoke();
-                        DestroyGameObject();
-                    });
-                }
-                // calling it now this else is going to cause problems later
-                else
-                {
-                    inputProcessedCallback = new Action(() =>
-                    {
-                        callback.Invoke();
-                    });
-                }*/
-
                 // add to input queue
                 if (!options.HasFlag(PrintTextOptions.DontPushToInputQueue))
                     AddToInputQueue();
@@ -153,11 +121,6 @@ namespace spacegame
                 // allow processing the input queue
                 UIManager.instance.canProcessInputQueue = true;
             }
-        }
-
-        public virtual string ReadSelf()
-        {
-            return readerAlt == string.Empty ? text.text : readerAlt;
         }
 
         public void AddToInputQueue()
