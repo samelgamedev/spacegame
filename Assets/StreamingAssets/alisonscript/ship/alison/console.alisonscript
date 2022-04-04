@@ -1,0 +1,36 @@
+;spk "alison approaches the ship's cockpit console at the front of the room"
+;spk "from here, she can use the ship's navigation system,"
+;spk "as well as speak through the intercom and pretend she's an airplane pilot"
+;spk "to her detriment, however, she can't reach any of the buttons without standing on her chair"
+;spk "placeholder text"
+
+;choice "@ch" "yes" "no"
+cond "@ch"
+	when "yes"
+		ifgsb "intro_tchat1" "False"
+			;set_gsb "intro_tchat1" "True"
+			# add the first few messages and pre-emptively advance tchat 
+			;tchat "microwave man sam: hey"
+			;tchat "microwave man sam: alison"
+			;tchat "microwave man sam: u there?"
+			;tchat "microwave man sam: i come to you with a deeply urgent matter"
+			;tchat "alison the robot joined the room"
+			;adv_tchat "5"
+
+			# then chuck in the rest of the messages before showing the tchat screen
+			;tchat "alison the robot: hi"
+			;tchat "microwave man sam: my friend"
+			;tchat "microwave man sam: i come to you in dire need of your prowess on cone-shaped headdressery"
+			;tchat "microwave man sam: which hat looks better"
+			;tchat "(show some awesome hats here)"
+			;tchat "alison the robot: i've never worn a hat before in my life"
+			;tchat "microwave man sam: that's a shame"
+			;tchat "microwave man sam: you have a very hattable head, alison"
+			;tchat "vancouver: i'm me as well!"
+			;tchat "alison the robot: hi"
+			;tchat "microwave man sam: some placeholder text"
+			;tchat "more text"
+			;tchat "more text here"
+		end
+		;show_tchat
+end

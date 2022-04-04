@@ -112,6 +112,7 @@
     <Compile Include="Assets\scripts\SpaceshipDoor.cs" />
     <Compile Include="Assets\scripts\Stairs.cs" />
     <Compile Include="Assets\scripts\Stars.cs" />
+    <Compile Include="Assets\scripts\TerminalChatManager.cs" />
     <Compile Include="Assets\scripts\TitleScreen.cs" />
     <Compile Include="Assets\scripts\UI.cs" />
     <Compile Include="Assets\scripts\UIManager.cs" />

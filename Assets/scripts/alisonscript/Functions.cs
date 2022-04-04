@@ -229,6 +229,32 @@ namespace spacegame.alisonscript
             yield break;
         }
 
+        [Function("tchat", 1)]
+        public IEnumerator TerminalChat(FunctionArgs args)
+        {
+            TerminalChatManager.AddMessage(args[0]);
+            args.callback.Invoke();
+            yield break;
+        }
+
+        [Function("adv_tchat", 1)]
+        public IEnumerator AdvanceTerminalChat(FunctionArgs args)
+        {
+            TerminalChatManager.AdvanceMessage(int.Parse(args[0]));
+            args.callback.Invoke();
+            yield break;
+        }
+
+        [Function("show_tchat")]
+        public IEnumerator ShowTerminalChat(FunctionArgs args)
+        {
+            TerminalChatManager.ToggleOpen(true);
+            
+            // don't invoke the callback until the chat screen is closed
+            yield return new WaitUntil(() => !TerminalChatManager.open);
+            args.callback.Invoke();
+        }
+
         public struct FunctionArgs
         {
             public Action callback;
